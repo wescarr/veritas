@@ -1,0 +1,34 @@
+{
+  "name": "veritas-env",
+  "version": "0.0.1",
+  "description": "Encrypted environment variables for node done right",
+  "engines": {
+    "node": ">=12"
+  },
+  "preferGlobal": true,
+  "main": "lib/index.js",
+  "bin": {
+    "veritas": "lib/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wescarr/veritas.git"
+  },
+  "keywords": [
+    "env",
+    "cipher",
+    "secure",
+    "encrypted"
+  ],
+  "author": "Wes Carr (https://github.com/wescarr)",
+  "type": "module",
+  "exports": "./lib/index.js",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wescarr/veritas/issues"
+  },
+  "homepage": "https://github.com/wescarr/veritas#readme"
+}
