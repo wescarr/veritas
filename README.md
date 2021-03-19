@@ -2,6 +2,12 @@
 
 Encrypted environment variables for node done right.
 
+## Install
+
+```bash
+npm install -g veritas-env
+```
+
 ## Configure
 
 Veritas supports the following options via environment variables
