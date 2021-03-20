@@ -1,6 +1,6 @@
 {
   "name": "veritas-env",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Encrypted environment variables for node done right",
   "engines": {
     "node": ">=12"
@@ -14,7 +14,7 @@
     "dist/"
   ],
   "scripts": {
-    "build": "babel lib/index.js --out-dir dist --out-file-extension .cjs",
+    "build": "rm -rf dist && babel lib/index.js --out-dir dist --out-file-extension .cjs",
     "prepublishOnly": "npm --no-git-tag-version version patch && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
