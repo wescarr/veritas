@@ -1,6 +1,6 @@
 {
   "name": "veritas-env",
-  "version": "0.0.2",
+  "version": "0.0.8",
   "description": "Encrypted environment variables for node done right",
   "engines": {
     "node": ">=12"
@@ -10,7 +10,12 @@
   "bin": {
     "veritas": "lib/cli.js"
   },
+  "files": [
+    "dist/"
+  ],
   "scripts": {
+    "build": "babel lib/index.js --out-dir dist --out-file-extension .cjs",
+    "prepublishOnly": "npm --no-git-tag-version version patch && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,10 +30,18 @@
   ],
   "author": "Wes Carr (https://github.com/wescarr)",
   "type": "module",
-  "exports": "./lib/index.js",
+  "exports": {
+    "import": "./lib/index.js",
+    "require": "./dist/index.cjs"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wescarr/veritas/issues"
   },
-  "homepage": "https://github.com/wescarr/veritas#readme"
+  "homepage": "https://github.com/wescarr/veritas#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10"
+  }
 }

@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/veritas-env.svg)](https://www.npmjs.com/veritas-env)
+
 # veritas
 
 Encrypted environment variables for node done right.
