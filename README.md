@@ -22,7 +22,7 @@ Veritas supports the following options via environment variables
 ### Optional
 
 - `VERITAS_ENCRYPTION_ALGORITHM`: Encryption algorithm to use. **Default:** `aes256`
-- `VERITAS_SALT_KEY_LENGTH`: Salt length. This must match the requirements of the selected encryption algorithm. **Default:** `32`
+- `VERITAS_SALT_KEY_LENGTH`: Salt length (bytes). This must match the requirements of the selected encryption algorithm. **Default:** `32`
 - `VERITAS_IV`: User provided Initialization Vector string. See below.
 - `VERITAS_IV_LENGTH`: Initialization Vector length (bytes). **Default:** `16`
 
@@ -36,19 +36,19 @@ To encrypt an existing `.env` file
 $ npx veritas encrypt --input=.env --output=./path/to/encrypted.json
 ```
 
-**Tip:** Use something like [direnv](https://direnv.net) to automatically expose your secrets when running the above command.
-
 To decrypt an existing file encrypted by veritas
 
 ```bash
 $ npx veritas decrypt --input=./path/to/encrypted.json --output=.env
 ```
 
+**Tip:** Use something like [direnv](https://direnv.net) to automatically expose your secrets when running the above commands.
+
 ## Motivation
 
 - ### Diffs
 
-  The problem other, similar libaries have is that they encrypt the entire contents of a file, making it opaque to diffing. It can be quite a cumbersome process to merge changes from another branch that updates an encrypted file that your branch has also modified. Multiple this by the number of environments you have, and ... I feel your pain.
+  The problem similar libaries have is that they encrypt the entire contents of a file, making it opaque to diffing. It can be quite a cumbersome process to merge changes from another branch that updates an encrypted file that your branch has also modified. Multiple this by the number of environments you have, and ... I feel your pain.
 
 - ### Vercel
 
