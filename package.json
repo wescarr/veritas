@@ -1,6 +1,6 @@
 {
   "name": "veritas-env",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Encrypted environment variables for node done right",
   "engines": {
     "node": ">=12"
@@ -23,10 +23,12 @@
     "url": "git+https://github.com/wescarr/veritas.git"
   },
   "keywords": [
-    "env",
     "cipher",
+    "encrypted",
+    "env",
+    "environment",
     "secure",
-    "encrypted"
+    "vercel"
   ],
   "author": "Wes Carr (https://github.com/wescarr)",
   "type": "module",
