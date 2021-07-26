@@ -33,13 +33,13 @@ By default, a random Initialization Vector is used each time a variable is encry
 To encrypt an existing `.env` file
 
 ```bash
-$ npx veritas encrypt --input=.env --output=./path/to/encrypted.json
+$ npx veritas-env encrypt --input=.env --output=./path/to/encrypted.json
 ```
 
 To decrypt an existing file encrypted by veritas
 
 ```bash
-$ npx veritas decrypt --input=./path/to/encrypted.json --output=.env
+$ npx veritas-env decrypt --input=./path/to/encrypted.json --output=.env
 ```
 
 **Tip:** Use something like [direnv](https://direnv.net) to automatically expose your secrets when running the above commands.
