@@ -2,15 +2,6 @@ import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 
-// Exit early if ENV vars are missing
-const args = ['VERITAS_SECRET', 'VERITAS_SALT']
-args.forEach((name) => {
-  if (!process.env[name]) {
-    console.warn(`Missing required envrionment variable '${name}'.`)
-    process.exit()
-  }
-})
-
 const {
   VERITAS_SECRET,
   VERITAS_ENCRYPTION_ALGORITHM = 'aes256',
@@ -20,8 +11,15 @@ const {
   VERITAS_IV_LENGTH = '16',
 } = process.env
 
-const encoding = 'base64'
+if (!VERITAS_SECRET) {
+  throw new Error('Missing required envrionment variable "VERITAS_SECRET"')
+}
 
+if (!VERITAS_SALT) {
+  throw new Error('Missing required envrionment variable "VERITAS_SALT"')
+}
+
+const encoding = 'base64'
 const ivLength = parseInt(VERITAS_IV_LENGTH, 10)
 
 const key = crypto.scryptSync(
@@ -30,20 +28,23 @@ const key = crypto.scryptSync(
   parseInt(VERITAS_SALT_KEY_LENGTH, 10)
 )
 
-const readJsonFile = (file) =>
-  JSON.parse(fs.readFileSync(file, { encoding: 'utf8' }))
+const readJsonFile = (file: string) =>
+  JSON.parse(fs.readFileSync(file, { encoding: 'utf8' })) as Record<
+    string,
+    string
+  >
 
 const getIv = () =>
   VERITAS_IV
     ? Buffer.from(VERITAS_IV, 'utf8').slice(0, ivLength)
     : crypto.randomBytes(ivLength)
 
-export const decrypt = (file, destination) => {
+export const decrypt = (file: string, destination: string) => {
   const vars = readJsonFile(file)
 
   for (const name in vars) {
     const data = Buffer.from(vars[name], encoding)
-    const iv = data.slice(0, ivLength)
+    const iv = data.subarray(0, ivLength)
     const ciphertext = Buffer.from(
       vars[name].slice(iv.toString(encoding).length),
       encoding
@@ -54,7 +55,7 @@ export const decrypt = (file, destination) => {
       key,
       iv
     )
-    let decrypted = decipher.update(ciphertext, encoding, 'utf8')
+    let decrypted = decipher.update(ciphertext, undefined, 'utf8')
     decrypted += decipher.final('utf8')
 
     vars[name] = decrypted
@@ -71,7 +72,7 @@ export const decrypt = (file, destination) => {
   return vars
 }
 
-export const encrypt = (envFile, destination) => {
+export const encrypt = (envFile: string, destination: string) => {
   const envData = fs.readFileSync(envFile, { encoding: 'utf-8' })
   const vars = Object.fromEntries(
     envData
