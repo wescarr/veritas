@@ -1,20 +1,19 @@
 {
   "name": "veritas-env",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "description": "Encrypted environment variables for node done right",
   "engines": {
     "node": ">=12"
   },
   "preferGlobal": true,
-  "main": "lib/index.js",
-  "bin": {
-    "veritas": "lib/cli.js"
-  },
+  "main": "./dist/index.js",
+  "bin": "./dist/cli.js",
   "files": [
     "dist/"
   ],
   "scripts": {
-    "build": "rm -rf dist && babel lib/index.js --out-dir dist --out-file-extension .cjs",
+    "build": "rimraf -G dist && tsup src/*.ts --format esm,cjs --dts --no-splitting",
+    "watch": "npm run build -- --watch src",
     "prepublishOnly": "npm --no-git-tag-version version patch && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,22 +27,28 @@
     "env",
     "environment",
     "secure",
-    "vercel"
+    "vercel",
+    "nextjs"
   ],
   "author": "Wes Carr (https://github.com/wescarr)",
+  "funding": "https://www.stackaid.us/github/wescarr/veritas",
   "type": "module",
   "exports": {
-    "import": "./lib/index.js",
-    "require": "./dist/index.cjs"
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "types": "./dist/index.d.ts"
   },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wescarr/veritas/issues"
   },
   "homepage": "https://github.com/wescarr/veritas#readme",
   "devDependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "@babel/preset-env": "^7.13.10"
+    "@tsconfig/node16": "^1.0.3",
+    "rimraf": "^3.0.2",
+    "tsup": "^6.2.2",
+    "typescript": "^4.7.4"
   }
 }

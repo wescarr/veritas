@@ -1,18 +1,18 @@
 #! /usr/bin/env node
-import { decrypt, encrypt } from './index.js'
+import { decrypt, encrypt } from './index'
 
 const usage = () => {
   console.log(`
 Usage:
   Command:
-    veritas encrypt [options]
+    veritas-env encrypt [options]
   
   Options:
     --input=<.env>            env file to encrypt
     --ouput=<encrypted.json>  file path to store encrypted contents
 
   Command:
-    veritas decrypt --input=encrypted.json --ouput=.env.local
+    veritas-env decrypt --input=encrypted.json --ouput=.env.local
 
   Options:
     --input=<encrypted.json>  file to decrypt
@@ -30,7 +30,7 @@ if (args.length !== 2) {
 const options = Object.fromEntries(
   args.map((a) => {
     const [name, value] = a.split('=', 2)
-    return [name.replace(/^-+/, ''), value]
+    return [name.toLowerCase().replace(/^-+/, ''), value]
   })
 )
 
@@ -39,7 +39,11 @@ if (!(input && output)) {
   usage()
 }
 
-switch (command) {
+if (input === output) {
+  throw new Error('input and output files should not be the same')
+}
+
+switch (command.toLowerCase()) {
   case 'encrypt':
     encrypt(input, output)
     break

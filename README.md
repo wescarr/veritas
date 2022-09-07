@@ -52,7 +52,9 @@ $ npx veritas-env decrypt --input=./path/to/encrypted.json --output=.env
 
 - ### Vercel
 
-  While I love Vercel and use it for numerous projects, it has the unfortunate limit of only allowing a total of `4KB` for environment variables. Use something like a credentials JSON file to work with Google libraries, and you've pretty much blown your entire budget.
+  While I love Vercel and use it for numerous projects, it previously had the unfortunate limit of only allowing a total of `4KB` for environment variables. Use something like a credentials JSON file to work with Google libraries, and you've pretty much blown your entire budget. This limit has been raised to `64KB` but middleware and edge functions are still confined to `5KB`.
+
+  Additionally, managing your secrets along side the rest of your source code has the added benefit of tracking changes over time and ensuring secret updates are deployed correctly.
 
   Here's how you can configure your `next.config.js` to work with Veritas.
 
