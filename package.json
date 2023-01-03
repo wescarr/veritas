@@ -1,6 +1,6 @@
 {
   "name": "veritas-env",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Encrypted environment variables for node done right",
   "engines": {
     "node": ">=12"
